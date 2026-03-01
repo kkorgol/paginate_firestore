@@ -1,14 +1,16 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
     }
-}
-
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
@@ -21,15 +23,13 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 34
-    buildToolsVersion "34.0.0"
-    ndkVersion "26.2.11394342"
+    namespace "space.cogitare.paginate_firestore_example"
+    compileSdkVersion 36
+    buildToolsVersion "36.1.0"
+    ndkVersion "29.0.14206865"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -42,8 +42,8 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "space.cogitare.paginate_firestore_example"
-        minSdkVersion 23
-        targetSdkVersion 34
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
